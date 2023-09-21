@@ -6,12 +6,12 @@ plugins {
 description = 'common drawables for refresh animations'
 
 android {
-    publishing {
-        singleVariant("release") {
-            withJavadocJar()
-            withSourcesJar()
-        }
-    }
+//    publishing {
+//        singleVariant("release") {
+//            withJavadocJar()
+//            withSourcesJar()
+//        }
+//    }
     namespace 'com.scwang.smart.drawable'
     compileSdkVersion 33
 

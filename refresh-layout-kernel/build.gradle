@@ -6,12 +6,12 @@ plugins {
 description = 'the kernel of SmartRefreshLayout'
 
 android {
-    publishing {
-        singleVariant("release") {
-            withJavadocJar()
-            withSourcesJar()
-        }
-    }
+//    publishing {
+//        singleVariant("release") {
+//            withJavadocJar()
+//            withSourcesJar()
+//        }
+//    }
     namespace 'com.scwang.smart.refresh.layout'
     compileSdkVersion 33
 
