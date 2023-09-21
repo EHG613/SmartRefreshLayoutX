@@ -1,0 +1,74 @@
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
+description = 'the footer ClassicsFooter of SmartRefreshLayout'
+
+android {
+    publishing {
+        singleVariant("release") {
+            withJavadocJar()
+            withSourcesJar()
+        }
+    }
+    namespace 'com.scwang.smart.refresh.footer.classics'
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    api project(':refresh-drawable-paint')
+    compileOnly project(':refresh-layout-kernel')
+}
+task sourcesJar(type: Jar) {
+    archiveClassifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = "com.github.EHG613"
+                artifactId = "refresh-footer-classics"
+                version = "2.0.7"
+                from components.release
+                artifact sourcesJar
+//
+//            pom {
+//                name = 'My Library'
+//                description = 'A description of my library'
+//            }
+            }
+        }
+//        repositories {
+//            maven {
+//                credentials {
+//                    username = '6035f369a8eb39baa4f517d9'
+//                    password = 'yAi_ALza8KAK'
+//                }
+//                def releasesRepoUrl = 'https://packages.aliyun.com/maven/repository/2078561-release-Nos0ft/'
+//                def snapshotsRepoUrl = 'https://packages.aliyun.com/maven/repository/2078561-snapshot-GTz66a/'
+//                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+//            }
+//        }
+    }
+}

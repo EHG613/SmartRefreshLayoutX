@@ -1,0 +1,146 @@
+//apply plugin: 'com.android.library'
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
+description = 'the kernel of SmartRefreshLayout'
+
+android {
+    publishing {
+        singleVariant("release") {
+            withJavadocJar()
+            withSourcesJar()
+        }
+    }
+    namespace 'com.scwang.smart.refresh.layout'
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.google.android.material:material:1.9.0'
+}
+task sourcesJar(type: Jar) {
+    archiveClassifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+}
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = "com.github.EHG613"
+                artifactId = "refresh-layout-kernel"
+                version = "2.0.7"
+                from components.release
+                artifact sourcesJar
+//
+//            pom {
+//                name = 'My Library'
+//                description = 'A description of my library'
+//            }
+            }
+        }
+//        repositories {
+//            maven {
+//                credentials {
+//                    username = '6035f369a8eb39baa4f517d9'
+//                    password = 'yAi_ALza8KAK'
+//                }
+//                def releasesRepoUrl = 'https://packages.aliyun.com/maven/repository/2078561-release-Nos0ft/'
+//                def snapshotsRepoUrl = 'https://packages.aliyun.com/maven/repository/2078561-snapshot-GTz66a/'
+//                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+//            }
+//        }
+    }
+}
+//apply plugin: 'maven-publish'
+//apply plugin: 'signing'
+//
+//task androidSourcesJar(type: Jar) {
+//    archiveClassifier.set("sources")
+//    from android.sourceSets.main.java.source
+//    exclude "**/R.class"
+//    exclude "**/BuildConfig.class"
+//}
+//
+//def projectName = name
+//def projectDescription = description
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            // group id，发布后引用的依赖的 group id
+//            groupId SMART_GROUP_MVN
+//            // 发布后引用的依赖的 artifact id
+//            artifactId projectName
+//            // 发布的版本
+//            version SMART_VERSION
+//            // 发布的 arr 的文件和源码文件
+//            artifact("$buildDir/outputs/aar/${projectName}-release.aar")
+//            artifact androidSourcesJar
+//            pom {
+//                // 构件名称，可以自定义
+//                name = projectName
+//                // 构件描述
+//                description = projectDescription
+//                // 构件主页
+//                url = "https://github.com/scwang90/${rootProject.name}"
+//                // 许可证名称和地址
+//                licenses {
+//                    license {
+//                        name = 'The Apache License, Version 2.0'
+//                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//                    }
+//                }
+//                // 开发者信息
+//                developers {
+//                    developer {
+//                        name = SMART_USER
+//                        email = SMART_EMAIL
+//                    }
+//                }
+//                // 版本控制仓库地址
+//                scm {
+//                    url = "https://github.com/scwang90/${rootProject.name}"
+//                    connection = "scm:git:github.com/scwang90/${rootProject.name}.git"
+//                    developerConnection = "scm:git:ssh://git@github.com/scwang90/${rootProject.name}.git"
+//                }
+//            }
+//        }
+//    }
+//    repositories {
+//        maven {
+//            // 发布的位置，这里根据发布的版本区分了 SNAPSHOT 和最终版本两种情况
+//            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+//            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+//            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+//            credentials {
+//                // 这里就是之前在 issues.sonatype.org 注册的账号
+//                username "${properties["sonatype.username"]}"
+//                password new String(Base64.mimeDecoder.decode("${properties["sonatype.password"]}"), "UTF-8")
+//            }
+//        }
+//    }
+//}
+//signing {
+//    sign publishing.publications
+//}
